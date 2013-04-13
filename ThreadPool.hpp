@@ -55,8 +55,8 @@ class ThreadPool : public Container
      {
          for(int i = 0; i < NUM_THREADS; i++)
          {
+             threads[i]->start();
              threads[i]->join();
-             threads[i]->start();     
          }
      }
 };
