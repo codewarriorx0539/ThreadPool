@@ -18,47 +18,16 @@ class ThreadPool : public Container
 {
  protected:
     std::priority_queue<Work*, std::vector<Work*>, workCompare> heap;
-    static const int NUM_THREADS = 4;
+    static const int NUM_THREADS = 1;
     Thread *threads[NUM_THREADS];
     
  public:   
-     ThreadPool(int limit) : bound(limit)
-     {
-         for(int i = 0; i < NUM_THREADS; i++)
-         {
-             threads[i] = new Thread(this);
-         }
-     }
+     ThreadPool(int limit);
      
-     Work* popWork()
-     {
-         Lock lock(mtx);
-         Work* newWork = null;
-         Wait2Consume w(consume, produce, mtx, *this);
-  
-         newWork = heap.top();
-         heap.pop();
-         size--;
-         
-         return newWork;
-     }
+     Work* popWork();
+    
+     void pushWork(Work *work);
      
-     void pushWork(Work *work)
-     {
-         Lock lock(mtx);
-         Wait2Produce w(produce, consume, mtx, *this);
-         
-         heap.push(work);
-         size++;
-     }
-     
-     void start()
-     {
-         for(int i = 0; i < NUM_THREADS; i++)
-         {
-             threads[i]->start();
-             threads[i]->join();
-         }
-     }
+     void start();
 };
 

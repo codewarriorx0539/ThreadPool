@@ -1,7 +1,7 @@
 #pragma once
 
-#include "mutex.h"
-#include "lock.h"
+#include "mutex.hpp"
+#include "lock.hpp"
 
 // BASE CLASS FOR ALL CONTAINERS
 
@@ -44,6 +44,12 @@ class Container
 		bound = 0;
 	}
 
+        Container(int bound)
+	{
+		size = 0;
+		this->bound = bound;
+	}
+        
 	~Container()
 	{
 	}

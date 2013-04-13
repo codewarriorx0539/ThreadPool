@@ -1,6 +1,6 @@
 #pragma once
 
-#include "mutex.h"
+#include "mutex.hpp"
 
 // RAII
 class Lock

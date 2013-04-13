@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class Work
 {
@@ -13,9 +14,25 @@ class Work
    
    virtual void run() =0;
    
-   void getPriority()
+   int getPriority() const
    {
        return priority;
    }
   
+};
+
+class CoutMsg : public Work
+{
+ public:
+    
+    CoutMsg() : Work(10)
+    {
+        
+    }
+    
+    void run()
+    {
+        std::cout << "Hello World";
+    }
+    
 };
