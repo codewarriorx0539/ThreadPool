@@ -1,5 +1,6 @@
 #pragma once
 #include <queue>
+#include <vector>
 #include "container.hpp"
 #include "thread.hpp"
 #include "work.hpp"
