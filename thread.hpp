@@ -4,13 +4,13 @@
 
 class ThreadPool;
 
-void processWork(void * thread)
+void processWork(void * pool)
 {
     
     {
         Mutex mtx;
         Lock lock(mtx);
-        Thread* pThread = (Thread*)thread;
+        ThreadPool* queue = (ThreadPool*)pool;
     }
     
     Work* pWork = null;
