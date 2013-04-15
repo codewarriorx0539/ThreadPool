@@ -1,12 +1,25 @@
 #include "ThreadPool.hpp"
 
-ThreadPool::ThreadPool(int limit) : Container(limit)
+ThreadPool::ThreadPool(int numThreads, int limit) : Container(limit)
 {
-
-    for(int i = 0; i < NUM_THREADS; i++)
+    this->numThreads = numThreads;
+    
+    threads = new Thread*[numThreads];
+    
+    for(int i = 0; i < numThreads; i++)
     {
         threads[i] = new Thread(this);
     }
+}
+
+ThreadPool::~ThreadPool()
+{
+    for(int i =0; i < numThreads; i++)
+    {
+        delete threads[i];
+    }
+    
+    delete [] threads;
 }
 
 Work* ThreadPool::popWork()
@@ -33,9 +46,14 @@ void ThreadPool::pushWork(Work *work)
 
 void ThreadPool::start()
 {
-    for(int i = 0; i < NUM_THREADS; i++)
+    for(int i = 0; i < numThreads; i++)
     {
         threads[i]->start();
+    }
+    
+    for(int i = 0; i < numThreads; i++)
+    {
         threads[i]->join();
     }
+  
 }

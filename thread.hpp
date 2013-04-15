@@ -9,12 +9,9 @@
 
 class ThreadPool;
 
-void* processWork(void * pool);
-
 class Thread
 {
  protected:
-     Mutex mtx;
      pthread_t pthread;
      const ThreadPool *queue;
      

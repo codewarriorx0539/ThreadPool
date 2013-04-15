@@ -1,25 +1,22 @@
 #include "thread.hpp"
 #include "ThreadPool.hpp"
 
-void* processWork(void * pool)
+namespace
 {
-    ThreadPool* queue = NULL;
-    
+    void* processWork(void * pool)
     {
-        Mutex mtx;
-        Lock lock(mtx);
-        queue = (ThreadPool*)pool;
-    }
-    
-    Work* pWork = NULL;
+        ThreadPool* queue = (ThreadPool*)pool;
 
-    while(1)
-    {
-        pWork = queue->popWork();
-        pWork->run();
-    }
+        Work* pWork = NULL;
 
-    pthread_exit(NULL);
+        while(1)
+        {
+            pWork = queue->popWork();
+            pWork->run();
+        }
+
+        pthread_exit(NULL);
+    }
 }
 
 Thread::Thread(const ThreadPool *pool) : queue(pool)
@@ -29,8 +26,6 @@ Thread::Thread(const ThreadPool *pool) : queue(pool)
 
 void Thread::start()
 {
-    Lock lock(mtx);
-
     int status = pthread_create(&pthread, 0, &processWork, (void*)queue);
     if (status != 0)
     {
@@ -56,8 +51,6 @@ void Thread::start()
 
 void Thread::join()
 {
-    Lock lock(mtx);
-
     int status = pthread_join(pthread, 0);
     if (status != 0)
     {

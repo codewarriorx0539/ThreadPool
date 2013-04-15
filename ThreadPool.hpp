@@ -18,11 +18,11 @@ class ThreadPool : public Container
 {
  protected:
     std::priority_queue<Work*, std::vector<Work*>, workCompare> heap;
-    static const int NUM_THREADS = 1;
-    Thread *threads[NUM_THREADS];
+    int numThreads;
+    Thread **threads;
     
  public:   
-     ThreadPool(int limit);
+     ThreadPool(int numThreads, int limit);
      
      Work* popWork();
     

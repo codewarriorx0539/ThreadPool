@@ -19,7 +19,8 @@ class Container
 
 	 int getSize()
 	 {
-		 return size;
+                Lock l(mtx);
+                return size;
 	 }
 
 	 bool isEmpty()
