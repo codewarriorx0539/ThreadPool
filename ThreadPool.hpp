@@ -23,6 +23,7 @@ class ThreadPool : public Container
     
  public:   
      ThreadPool(int numThreads, int limit);
+     ~ThreadPool();
      
      Work* popWork();
     
