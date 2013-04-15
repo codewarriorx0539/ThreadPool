@@ -7,7 +7,10 @@ using namespace std;
 
 int main(int argc, char** argv) 
 {
-    ThreadPool tp(100);
+    int limit =100;
+    int numthreads = 4;
+    
+    ThreadPool tp(numthreads, limit);
     CoutMsg w[5];
     
     for(int i = 0; i < 5; i++)
